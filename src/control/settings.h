@@ -24,6 +24,13 @@
 
 #include <inttypes.h>
 
+// some timelapse stuff
+typedef enum dt_dev_timelapse_t
+{
+  DT_TIMELASE_NONE = 0,
+  DT_TIMELASE_RESET_AVERAGE_BRIGHTNESS = 1,
+} dt_dev_timelapse_t;
+
 typedef enum dt_dev_zoom_t
 {
   DT_ZOOM_FIT = 0,

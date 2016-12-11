@@ -70,6 +70,8 @@ typedef enum
   DT_IMAGE_HAS_WAV = 8192,
   // image is a bayer pattern with 4 colors (e.g., CYGM or RGBE)
   DT_IMAGE_4BAYER = 16384,
+  // image is keyframe in timelapse
+  DT_IMAGE_TIMELAPSE_KEYFRAME = 16384
 } dt_image_flags_t;
 
 typedef enum dt_image_colorspace_t
@@ -181,6 +183,11 @@ typedef struct dt_image_t
   float wb_coeffs[4];
   /* convenience pointer back into the image cache, so we can return dt_image_t* there directly. */
   struct dt_cache_entry_t *cache_entry;
+
+  /* timelapse stuff */
+  long double average_brightness;
+  int timelapse_keyframe;
+  double exposure_correction;
 } dt_image_t;
 
 // image buffer operations:

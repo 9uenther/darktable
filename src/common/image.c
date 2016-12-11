@@ -1014,6 +1014,9 @@ void dt_image_init(dt_image_t *img)
   img->raw_black_level = 0;
   for(uint8_t i = 0; i < 4; i++) img->raw_black_level_separate[i] = 0;
   img->raw_white_point = 16384; // 2^14
+  img->average_brightness = -1; /* timelapse stuff */
+  img->timelapse_keyframe = 0; /* timelapse stuff */
+  img->exposure_correction = -1; /* timelapse stuff */
   img->d65_color_matrix[0] = NAN;
   img->profile = NULL;
   img->profile_size = 0;

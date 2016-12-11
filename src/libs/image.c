@@ -43,7 +43,7 @@ typedef struct dt_lib_image_t
 {
   GtkWidget *rotate_cw_button, *rotate_ccw_button, *remove_button, *delete_button, *create_hdr_button,
       *duplicate_button, *reset_button, *move_button, *copy_button, *group_button, *ungroup_button,
-      *cache_button, *uncache_button;
+      *cache_button, *uncache_button, *timelapse_button;
 } dt_lib_image_t;
 
 const char *name(dt_lib_module_t *self)
@@ -131,6 +131,10 @@ static void button_clicked(GtkWidget *widget, gpointer user_data)
     dt_control_set_local_copy_images();
   else if(i == 13)
     dt_control_reset_local_copy_images();
+  else if(i == 14)
+    _group_helper_function();
+  else if(i == 15)
+    _ungroup_helper_function();
 }
 
 static const char* _image_get_delete_button_label()
@@ -271,6 +275,14 @@ void gui_init(dt_lib_module_t *self)
   gtk_grid_attach(grid, button, 2, line, 2, 1);
   g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(button_clicked), GINT_TO_POINTER(11));
 
+  // some timelapse stuff
+  button = gtk_button_new_with_label(_("timelapse"));
+  d->timelapse_button = button;
+  g_object_set(G_OBJECT(button), "tooltip-text",
+               _("group selected images as timelapse"), (char *)NULL);
+  gtk_grid_attach(grid, button, 0, line, 2, 1);
+  g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(button_clicked), GINT_TO_POINTER(14));
+
   /* connect preference changed signal */
   dt_control_signal_connect(
       darktable.signals,
@@ -300,6 +312,8 @@ void init_key_accels(dt_lib_module_t *self)
   // Grouping keys
   dt_accel_register_lib(self, NC_("accel", "group"), GDK_KEY_g, GDK_CONTROL_MASK);
   dt_accel_register_lib(self, NC_("accel", "ungroup"), GDK_KEY_g, GDK_CONTROL_MASK | GDK_SHIFT_MASK);
+  // Timelapse keys
+  dt_accel_register_lib(self, NC_("accel", "timelapse"), GDK_KEY_g, GDK_CONTROL_MASK);
 }
 
 void connect_key_accels(dt_lib_module_t *self)
@@ -316,6 +330,8 @@ void connect_key_accels(dt_lib_module_t *self)
   // Grouping keys
   dt_accel_connect_button_lib(self, "group", d->group_button);
   dt_accel_connect_button_lib(self, "ungroup", d->ungroup_button);
+  // Timelapse keys
+  dt_accel_connect_button_lib(self, "timelapse", d->timelapse_button);
 }
 
 #ifdef USE_LUA

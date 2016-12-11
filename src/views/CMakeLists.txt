@@ -5,12 +5,13 @@ include(manage-symbol-visibility)
 add_definitions(-include common/module_api.h)
 add_definitions(-include views/view_api.h)
 
-set(MODULES darkroom lighttable slideshow knight)
+set(MODULES darkroom lighttable slideshow knight timelapse)
 
 add_library(darkroom MODULE "darkroom.c")
 add_library(lighttable MODULE "lighttable.c")
 add_library(slideshow MODULE "slideshow.c")
 add_library(knight MODULE "knight.c")
+add_library(timelapse MODULE "timelapse.c")
 
 if(USE_MAP)
     add_library(map MODULE "map.c")

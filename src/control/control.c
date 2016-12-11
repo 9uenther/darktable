@@ -860,6 +860,21 @@ void dt_control_set_dev_zoom(dt_dev_zoom_t value)
   dt_pthread_mutex_unlock(&(darktable.control->global_mutex));
 }
 
+// some timelapse stuff
+dt_dev_timelapse_t dt_control_get_dev_timelapse()
+{
+  //dt_pthread_mutex_lock(&(darktable.control->global_mutex));
+  dt_dev_timelapse_t result = darktable.control->dev_timelapse;
+  //dt_pthread_mutex_unlock(&(darktable.control->global_mutex));
+  return result;
+}
+void dt_control_set_dev_timelapse(dt_dev_timelapse_t value)
+{
+  dt_pthread_mutex_lock(&(darktable.control->global_mutex));
+  darktable.control->dev_timelapse = value;
+  dt_pthread_mutex_unlock(&(darktable.control->global_mutex));
+}
+
 
 // modelines: These editor modelines have been set for all relevant files by tools/update_modelines.sh
 // vim: shiftwidth=2 expandtab tabstop=2 cindent

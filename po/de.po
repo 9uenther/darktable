@@ -8849,6 +8849,18 @@ msgstr "Gruppe auflösen"
 msgid "remove selected images from the group"
 msgstr "Ausgewählte Bilder aus der Gruppe entfernen"
 
+#: ../src/libs/image.c:223
+msgid "timelapse"
+msgstr "Zeitraffer"
+
+#: ../src/libs/image.c:223
+msgid "create timelapse"
+msgstr "Zeitraffer erstellen"
+
+#: ../src/libs/image.c:226
+msgid "group selected images as timelapse"
+msgstr "ausgewählte Bilder als Zeitraffer Zussammenfassen"
+
 #: ../src/libs/image.c:293
 msgctxt "accel"
 msgid "remove from collection"

@@ -41,7 +41,7 @@ void dt_image_cache_allocate(void *data, dt_cache_entry_t *entry)
       "SELECT id, group_id, film_id, width, height, filename, maker, model, lens, exposure, "
       "aperture, iso, focal_length, datetime_taken, flags, crop, orientation, focus_distance, "
       "raw_parameters, longitude, latitude, altitude, color_matrix, colorspace, version, raw_black, "
-      "raw_maximum FROM main.images WHERE id = ?1",
+      "raw_maximum, average_brightness, timelapse_keyframe, exposure_correction FROM main.images WHERE id = ?1", /* added timelapse stuff */
       -1, &stmt, NULL);
   DT_DEBUG_SQLITE3_BIND_INT(stmt, 1, entry->key);
   if(sqlite3_step(stmt) == SQLITE_ROW)
@@ -101,6 +101,9 @@ void dt_image_cache_allocate(void *data, dt_cache_entry_t *entry)
     img->raw_black_level = sqlite3_column_int(stmt, 25);
     for(uint8_t i = 0; i < 4; i++) img->raw_black_level_separate[i] = 0;
     img->raw_white_point = sqlite3_column_int(stmt, 26);
+    img->average_brightness = sqlite3_column_double(stmt, 27); /* timelapse stuff */
+    img->timelapse_keyframe = sqlite3_column_double(stmt, 28); /* timelapse stuff */
+    img->exposure_correction = sqlite3_column_double(stmt, 29); /* timelapse stuff */
 
     // buffer size?
     if(img->flags & DT_IMAGE_LDR)
@@ -219,7 +222,7 @@ void dt_image_cache_write_release(dt_image_cache_t *cache, dt_image_t *img, dt_i
       "focus_distance = ?10, film_id = ?11, datetime_taken = ?12, flags = ?13, "
       "crop = ?14, orientation = ?15, raw_parameters = ?16, group_id = ?17, longitude = ?18, "
       "latitude = ?19, altitude = ?20, color_matrix = ?21, colorspace = ?22, raw_black = ?23, "
-      "raw_maximum = ?24 WHERE id = ?25",
+      "raw_maximum = ?24, average_brightness = ?25, timelapse_keyframe = ?26, exposure_correction = ?27 WHERE id = ?28", /* added timelapse stuff */
       -1, &stmt, NULL);
   DT_DEBUG_SQLITE3_BIND_INT(stmt, 1, img->width);
   DT_DEBUG_SQLITE3_BIND_INT(stmt, 2, img->height);
@@ -245,7 +248,10 @@ void dt_image_cache_write_release(dt_image_cache_t *cache, dt_image_t *img, dt_i
   DT_DEBUG_SQLITE3_BIND_INT(stmt, 22, img->colorspace);
   DT_DEBUG_SQLITE3_BIND_INT(stmt, 23, img->raw_black_level);
   DT_DEBUG_SQLITE3_BIND_INT(stmt, 24, img->raw_white_point);
-  DT_DEBUG_SQLITE3_BIND_INT(stmt, 25, img->id);
+  DT_DEBUG_SQLITE3_BIND_DOUBLE(stmt, 25, img->average_brightness); /* timelapse stuff */
+  DT_DEBUG_SQLITE3_BIND_INT(stmt, 26, img->timelapse_keyframe); /* timelapse stuff */
+  DT_DEBUG_SQLITE3_BIND_INT(stmt, 27, img->exposure_correction); /* timelapse stuff */
+  DT_DEBUG_SQLITE3_BIND_INT(stmt, 28, img->id);
   int rc = sqlite3_step(stmt);
   if(rc != SQLITE_DONE) fprintf(stderr, "[image_cache_write_release] sqlite3 error %d\n", rc);
   sqlite3_finalize(stmt);

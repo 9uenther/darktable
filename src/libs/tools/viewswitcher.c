@@ -290,6 +290,8 @@ static void _switch_view(int which)
   else if(which == DT_VIEW_PRINT)
     dt_ctl_switch_mode_to(DT_PRINT);
 #endif
+  else if(which == DT_VIEW_TIMELAPSE)
+    dt_ctl_switch_mode_to(DT_TIMELAPSE);
 }
 
 static gboolean _lib_viewswitcher_button_press_callback(GtkWidget *w, GdkEventButton *ev, gpointer user_data)

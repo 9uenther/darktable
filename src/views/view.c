@@ -76,6 +76,7 @@ void dt_view_manager_init(dt_view_manager_t *vm)
                       "print",
 #endif
                       "knight",
+                      "timelapse",
                       NULL };
   char *module = modules[midx];
   while(module != NULL)

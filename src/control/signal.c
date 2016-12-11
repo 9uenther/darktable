@@ -113,6 +113,22 @@ static dt_signal_description _signal_description[DT_SIGNAL_COUNT] = {
   { "dt-camera-detected", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__VOID, 0,
     NULL, NULL, FALSE }, // DT_SIGNAL_CAMERA_DETECTED,
 
+  // some timelapse stuff
+  { "dt-timelapse-reset", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__VOID, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_RESET,
+  { "dt-timelapse-initialize", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__VOID, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_INITIALIZE,
+  { "dt-timelapse-equalize", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__VOID, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_EQUALIZE,
+  { "dt-timelapse-reset-region", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__VOID, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_RESET_REGION,
+  { "dt-timelapse-set-region", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__VOID, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_SET_REGION,
+  { "dt-timelapse-set-exposure-gain-start", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__UINT, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_SET_EXPOSURE_GAIN_START,
+  { "dt-timelapse-set-exposure-gain-end", NULL, NULL, G_TYPE_NONE, g_cclosure_marshal_VOID__UINT, 0,
+    NULL, NULL, FALSE }, // DT_SIGNAL_TIMELAPSE_SET_EXPOSURE_GAIN_END,
+
 };
 
 static GType _signal_type;

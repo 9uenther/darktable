@@ -54,6 +54,7 @@ typedef enum dt_control_gui_mode_t
   DT_PRINT,
 #endif
   DT_KNIGHT,
+  DT_TIMELAPSE,
   DT_MODE_NONE
 } dt_control_gui_mode_t;
 
@@ -118,7 +119,8 @@ typedef struct dt_control_accels_t
   GtkAccelKey filmstrip_forward, filmstrip_back, lighttable_up, lighttable_down, lighttable_right,
       lighttable_left, lighttable_center, lighttable_preview, lighttable_preview_display_focus,
       lighttable_preview_sticky, lighttable_preview_sticky_focus, lighttable_preview_sticky_exit,
-      global_sideborders, global_header, darkroom_preview, slideshow_start;
+      global_sideborders, global_header, darkroom_preview, slideshow_start, 
+      timelapse_up, timelapse_down, timelapse_right, timelapse_left; /* timelapse stuff */
 
 } dt_control_accels_t;
 
@@ -156,6 +158,9 @@ typedef struct dt_control_t
   double button_x, button_y;
   int history_start;
   int32_t mouse_over_id;
+
+  // some timelapse stuff
+  dt_dev_timelapse_t dev_timelapse;
 
   // TODO: move these to some darkroom struct
   // synchronized navigation
@@ -261,6 +266,10 @@ void dt_control_set_dev_closeup(int value);
 
 dt_dev_zoom_t dt_control_get_dev_zoom();
 void dt_control_set_dev_zoom(dt_dev_zoom_t value);
+
+// some timelapse stuff
+dt_dev_timelapse_t dt_control_get_dev_timelapse();
+void dt_control_set_dev_timelapse(dt_dev_timelapse_t value);
 
 static inline int32_t dt_ctl_get_num_procs()
 {
